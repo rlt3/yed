@@ -129,6 +129,7 @@ do {                                                              \
     SET_DEFAULT_COMMAND("frame-next",                         frame_next);
     SET_DEFAULT_COMMAND("frame-prev",                         frame_prev);
     SET_DEFAULT_COMMAND("frame-move",                         frame_move);
+    SET_DEFAULT_COMMAND("frame-scroll",                       frame_scroll);
     SET_DEFAULT_COMMAND("frame-resize",                       frame_resize);
     SET_DEFAULT_COMMAND("frame-tree-resize",                  frame_tree_resize);
     SET_DEFAULT_COMMAND("frame",                              frame);
@@ -2135,6 +2136,20 @@ void yed_default_command_frame_move(int n_args, char **args) {
         sscanf(args[0], "%d", &key);
         frame_move_take_key(key);
     }
+}
+
+void yed_default_command_frame_scroll(int n_args, char **args) {
+    int n_lines;
+
+    if (!ys->active_frame)
+        return;
+
+    /* n_lines can be signed, scrolling buffer up. default is scrolling down */
+    n_lines = 1;
+    if (n_args == 1)
+        sscanf(args[0], "%d", &n_lines);
+
+    yed_frame_scroll_buffer(ys->active_frame, n_lines);
 }
 
 void frame_resize_take_key(int key) {
