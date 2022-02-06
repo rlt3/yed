@@ -1204,11 +1204,9 @@ out:;
 void yed_default_command_cursor_next_word_end(int n_args, char **args) {
     yed_frame *frame;
     yed_line  *line;
-    int        col, row;
+    int        col;
     char       c;
     char       nextc;
-    int        save_row;
-    int        save_col;
 
     if (n_args != 0) {
         yed_cerr("expected 0 arguments, but got %d", n_args);
